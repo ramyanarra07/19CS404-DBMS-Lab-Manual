@@ -1,5 +1,6 @@
 # Experiment 3: DML Commands
-
+## Name:NARRA RAMYA
+## Reg.no:212223040128
 ## AIM
 To study and implement DML (Data Manipulation Language) commands.
 
@@ -47,191 +48,119 @@ SELECT column1, column2 FROM table_name WHERE condition;
 ```
 **Question 1**
 
-Decrease the reorder level by 30 percent where the product name contains 'cream' and quantity in stock is higher than reorder level in the products table.
-
-![image](https://github.com/user-attachments/assets/79220db3-9920-47ea-a448-c66e1fbeb949)
-
+Write a SQL statement to update the product_name as 'Grapefruit' whose product_id is 4 in the products table.
 ```
-update PRODUCTS
-
-set reorder_lvl=reorder_lvl*0.7
-
-where product_name like '%cream%'
-
-and quantity>reorder_lvl;
+update products
+set product_name='Grapefruit'
+where product_id=4;
 ```
-
 **Output:**
 
-![image](https://github.com/user-attachments/assets/c7794ce9-f291-4cb1-9fd4-ac0994d054f4)
+![image](https://github.com/user-attachments/assets/f7cb35b7-e15c-4d6d-be26-695316a2752f)
 
 **Question 2**
 
-Write a SQL statement to Update the address to '58 Lakeview, Magnolia' where supplier ID is 5 in the suppliers table.
-
-![image](https://github.com/user-attachments/assets/1aa6b872-0d06-4ce7-80e3-7c85154826c5)
-
+Write a SQL query to reduce the reorder level by 30% where cost price is more than 50 and quantity in stock is less than 100 in the products table.
 ```
-update Suppliers
-
-set address= '58 Lakeview, Magnolia'
-
-where supplier_id=5;
+update Products
+set reorder_lvl=reorder_lvl*0.7
+where cost_price>50 and quantity<100;
 ```
-
 **Output:**
 
-![image](https://github.com/user-attachments/assets/b2e0e836-404c-41c7-ae6c-5724881b8911)
+![image](https://github.com/user-attachments/assets/be6557eb-cca2-408a-ba08-390d6e796285)
 
 **Question 3**
 
-Write a SQL statement to Increase the selling price by 15% in the products table where quantity in stock is less than 50 and supplier ID is 10.
-
-![image](https://github.com/user-attachments/assets/c6367757-fd62-4bf9-9799-e4485927a7a8)
-
+Write a SQL query to Delete a Specific Surgery which was made on 28th Feb 2024.
 ```
-update Products
-
-set sell_price=sell_price*1.15
-
-where quantity<50
-
-and supplier_id=10;
+delete from Surgeries 
+where surgery_date='2024-02-28';
 ```
-
 **Output:**
 
-![image](https://github.com/user-attachments/assets/58b09089-1ea3-4814-9cb1-9a355a7666c9)
+![image](https://github.com/user-attachments/assets/10904988-223a-42e7-94ca-3b48b01b9c31)
 
 **Question 4**
 
-For Increase the selling price per unit by 3 for all products supplied by supplier ID 4 in the sales table.
-
-![image](https://github.com/user-attachments/assets/ab5e782b-214e-4210-a344-80cba773ab9e)
-
+Write a SQL query to Delete customers from 'customer' table where 'GRADE' is not equal to 3.
 ```
-update Products
-
-set sell_price=sell_price*1.15
-
-where quantity<50
-
-and supplier_id=10;
+delete from customer
+where GRADE!=3;
 ```
-
 **Output:**
 
-![image](https://github.com/user-attachments/assets/c99ddf30-c492-4838-82c8-45d4456423f2)
+![image](https://github.com/user-attachments/assets/79285c8a-2978-407d-82ba-b3c2cdb69272)
 
 **Question 5**
 
-For Increase the selling price per unit by 3 for all products supplied by supplier ID 4 in the sales table.
-
-![image](https://github.com/user-attachments/assets/5fb594d8-e0cd-4af8-8f20-aa1a03569686)
-
+Write a query to fetch details of employees whose EmpLname ends with an alphabet ‘A’ and contains five alphabets.
 ```
-update SALES
-
-set sell_price=sell_price+3
-
-where product_id in(select product_id
-
-from PRODUCTS
-
-where supplier_id=4 );
+select * from EmployeeInfo 
+where EmpLname like '%A' and length(EmpLname)=5;
 ```
-
 **Output:**
 
-![image](https://github.com/user-attachments/assets/5a65b690-abc1-4f33-bbae-30075921eddd)
+![image](https://github.com/user-attachments/assets/821d1823-0fea-438e-9709-d82220eea49a)
 
 **Question 6**
 
-Write a SQL statement to Double the salary for employees in department 20 who have a job_id ending with 'MAN'
-
-![image](https://github.com/user-attachments/assets/63ee743e-6294-483c-ad4c-defb851b0d46)
-
+Write a SQL query to classify base in the Calculations table as 'Provided' if it is not NULL, otherwise 'Not Provided'.
 ```
-UPDATE Employees
-
-set salary=salary*2
-
-where department_id=20
-
-and job_id like '%MAN';
+select id,base,
+case when base is not NULL then 'Provided'
+else 'Not Provided'
+end as base_status
+from Calculations;
 ```
-
 **Output:**
 
-![image](https://github.com/user-attachments/assets/0728490e-6602-4c5a-8e24-e781d97a4e0e)
+![image](https://github.com/user-attachments/assets/01350e6d-b955-4d9f-8d27-c40f32b3423e)
 
 **Question 7**
 
-Write a SQL query to Delete a Specific Surgery which was made on 28th Feb 2024.
-
-![image](https://github.com/user-attachments/assets/f02468d8-a468-46b4-b135-43cb93a1bbbe)
-
+Write a SQL query to calculate the final price after applying both the discount and the tax. Return product_id, original_price, discount_percentage, tax_rate, and final_price.
 ```
-delete from Surgeries
-
-where surgery_date='2024-02-28';
+select product_id,original_price,discount_percentage,tax_rate,(original_price*(1-discount_percentage))*(1+tax_rate) as final_price
+from products;
 ```
-
 **Output:**
 
-![image](https://github.com/user-attachments/assets/66acac18-605d-47e1-b847-cacb0124e82e)
+![image](https://github.com/user-attachments/assets/1fb06574-24fd-4972-b6e2-79a5a2065676)
 
 **Question 8**
 
-Write a SQL query to Delete customers from 'customer' table where 'CUST_CITY' is not 'New York' and 'OUTSTANDING_AMT' is greater than 5000.
-
-![image](https://github.com/user-attachments/assets/5a71a3e0-b295-4dcd-96d9-aec77149cc1f)
-
+Create a report that shows the capitalized FirstName and capitalized LastName renamed as FirstName and Lastname respectively and EmployeeId from the employees table sorted by EmployeeId in descending order.
 ```
-delete from Customer
-
-where CUST_CITY!='New York'
-
-and OUTSTANDING_AMT>5000;
+select upper(FirstName) AS FirstName,upper(LastName) AS LastName,EmployeeId
+from employees
+order by EmployeeID desc;
 ```
-
 **Output:**
 
-![image](https://github.com/user-attachments/assets/4161feb8-01e9-408d-a961-45797a8b2cff)
+![image](https://github.com/user-attachments/assets/fdff8b34-9326-409f-9a0f-184c53772e6c)
 
 **Question 9**
 
-Write a SQL query to Delete all Doctors whose Specialization is either 'Pediatrics' or 'Cardiology' and Last Name is Brown.
-
-![image](https://github.com/user-attachments/assets/8b247064-2352-4fe7-acdd-1711eea27ed1)
-
+Write a SQL statement to retrieve city(column name) of all customers from customers table without any repeats.
 ```
-delete from Doctors
-
-where Specialization in ('Pediatrics','Cardiology')
-
-and last_name like '%Brown%';
+select distinct city from customers;
 ```
-
 **Output:**
 
-![image](https://github.com/user-attachments/assets/269b81dd-fa71-45a9-858f-55b5285ea606)
+![image](https://github.com/user-attachments/assets/38dc88ff-bf42-4f73-a8ca-5a1b75ae5a23)
 
 **Question 10**
 
-Write a SQL query to Delete customers from 'customer' table where 'GRADE' is greater than or equal to 2.
-
-![image](https://github.com/user-attachments/assets/a25ffa8b-c335-44c1-82c3-9143c317ee2f)
-
+Write a SQL statement to Double the salary for employees in department 20 who have a job_id ending with 'MAN'
 ```
-delete from Customer
-
-where GRADE>=2;
+update EMPLOYEES
+SET SALARY= SALARY *2
+WHERE JOB_ID like'%MAN';
 ```
-
 **Output:**
 
-![image](https://github.com/user-attachments/assets/7c5acc0e-05ec-4da4-98a1-957cf3d953f8)
+![image](https://github.com/user-attachments/assets/30c35d8d-ef7b-4012-8554-9d1fe551bc5b)
 
 ## RESULT
 Thus, the SQL queries to implement DML commands have been executed successfully.
