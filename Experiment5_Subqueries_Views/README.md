@@ -1,5 +1,6 @@
 # Experiment 5: Subqueries and Views
-
+## Name:NARRA RAMYA
+## Reg.no:212223040128
 ## AIM
 To study and implement subqueries and views.
 
@@ -37,307 +38,219 @@ DROP VIEW view_name;
 ```
 
 **Question 1**
---
-Write a SQL query that retrieve all the columns from the table "Grades", where the grade is equal to the maximum grade achieved in each subject.
-Sample table: GRADES (attributes: student_id, student_name, subject, grade)
 
+Write a SQL query to List departments with names longer than the average length
+
+Departments Table
 ```
-SELECT *
-FROM GRADES g
-WHERE grade = (
-    SELECT MAX(grade)
-    FROM GRADES
-    WHERE subject = g.subject
-);
-
+SELECT department_id,department_name
+from Departments
+WHERE LENGTH (department_name)>
+(
+SELECT AVG(LENGTH(department_name))
+FROM Departments
+)
 ```
-
 **Output:**
 
-![image](https://github.com/user-attachments/assets/d3d3c6be-b5b9-40e7-aed4-091d3c825e63)
+![image](https://github.com/user-attachments/assets/61c5fa76-63eb-4a4e-b5f4-b35c61c8f60d)
 
 
 **Question 2**
----
-Write a SQL query to Identify customers whose city is different from the city of the customer with the highest ID
 
-SAMPLE TABLE: customer
-```
-name             type
----------------  ---------------
-id               INTEGER
-name             TEXT
-city             TEXT
-email            TEXT
-phone            INTEGER
-```
-```
-SELECT *
-FROM customer
-WHERE city <> (
-    SELECT city
-    FROM customer
-    WHERE id = (SELECT MAX(id) FROM customer)
-);
+Write a SQL query to retrieve all columns from the CUSTOMERS table for customers whose salary is greater than $1500.
 
+Sample table: CUSTOMERS
+
+ID NAME AGE ADDRESS SALARY
+
+1 Ramesh 32 Ahmedabad 2000 2 Khilan 25 Delhi 1500 3 Kaushik 23 Kota 2000 4 Chaitali 25 Mumbai 6500 5 Hardik 27 Bhopal 8500 6 Komal 22 Hyderabad 4500
+
+7 Muffy 24 Indore 10000
+```
+SELECT * 
+FROM CUSTOMERS
+WHERE SALARY > 1500;
 ```
 
 **Output:**
 
-![image](https://github.com/user-attachments/assets/91ff9e98-1f8d-4a62-877a-5cf34ee18ee4)
+![image](https://github.com/user-attachments/assets/5455e038-2759-421b-99c6-54dd029d27e1)
 
 
 **Question 3**
----
-Write a SQL query to retrieve all columns from the CUSTOMERS table for customers whose salary is LESS than $2500.
 
-Sample table: CUSTOMERS
+Write a SQL query to Find employees who have an age less than the average age of employees with incomes over 2.5 Lakh
 ```
-ID          NAME        AGE         ADDRESS     SALARY
-----------  ----------  ----------  ----------  ----------
-
-1          Ramesh     32              Ahmedabad     2000
-2          Khilan        25              Delhi                 1500
-3          Kaushik      23              Kota                  2000
-4          Chaitali       25             Mumbai            6500
-5          Hardik        27              Bhopal              8500
-6          Komal         22              Hyderabad       4500
-
-7           Muffy          24              Indore            10000
-
+SELECT id,name,age,city,income
+FROM Employee
+WHERE age < (
+    SELECT AVG(age)
+    FROM Employee
+    WHERE income > 250000
+);
 ```
-```
-SELECT *
-FROM CUSTOMERS
-WHERE SALARY < 2500;
-
-```
-
 **Output:**
 
-![image](https://github.com/user-attachments/assets/5368fd05-45e9-44ce-98b9-755023b20def)
+![image](https://github.com/user-attachments/assets/59b67b38-518e-4d14-a96c-8b4da0ccc4b2)
 
 
 **Question 4**
----
-From the following tables write a SQL query to count the number of customers with grades above the average in New York City. Return grade and count.
 
-customer table
-```
-name         type
------------  ----------
-customer_id  int
-cust_name    text
-city         text
-grade        int
-salesman_id  int
-```
-```
-SELECT grade, COUNT(*)
-FROM customer
-WHERE  grade > (SELECT AVG(grade) FROM customer WHERE city = 'New York')
-GROUP BY grade;
+Write a SQL query to retrieve all columns from the CUSTOMERS table for customers whose AGE is LESS than $30
 
-```
+Sample table: CUSTOMERS
 
+ID NAME AGE ADDRESS SALARY
+
+1 Ramesh 32 Ahmedabad 2000 2 Khilan 25 Delhi 1500 3 Kaushik 23 Kota 2000 4 Chaitali 25 Mumbai 6500 5 Hardik 27 Bhopal 8500 6 Komal 22 Hyderabad 4500
+
+7 Muffy 24 Indore 10000
+```
+SELECT * 
+FROM CUSTOMERS
+WHERE AGE < 30;
+```
 **Output:**
 
-![image](https://github.com/user-attachments/assets/5ee3faa5-16e7-4f66-aa1d-3be574da237b)
-
+![image](https://github.com/user-attachments/assets/596208e4-a577-46e2-85c9-df2cabf3ebea)
 
 **Question 5**
----
+
 Write a SQL query to retrieve all columns from the CUSTOMERS table for customers whose Address as Delhi
 
 Sample table: CUSTOMERS
-```
-ID          NAME        AGE         ADDRESS     SALARY
-----------  ----------  ----------  ----------  ----------
 
-1          Ramesh     32              Ahmedabad     2000
-2          Khilan        25              Delhi                 1500
-3          Kaushik      23              Kota                  2000
-4          Chaitali       25             Mumbai            6500
-5          Hardik        27              Bhopal              8500
-6          Komal         22              Hyderabad       4500
+ID NAME AGE ADDRESS SALARY
 
-7           Muffy          24              Indore            10000
+1 Ramesh 32 Ahmedabad 2000 2 Khilan 25 Delhi 1500 3 Kaushik 23 Kota 2000 4 Chaitali 25 Mumbai 6500 5 Hardik 27 Bhopal 8500 6 Komal 22 Hyderabad 4500
+
+7 Muffy 24 Indore 10000
 ```
-```
-SELECT *
+SELECT * 
 FROM CUSTOMERS
 WHERE ADDRESS = 'Delhi';
-
 ```
-
 **Output:**
 
-![image](https://github.com/user-attachments/assets/80f9f243-907d-4aea-a337-6c50af79ea3f)
-
+![image](https://github.com/user-attachments/assets/dd79dbfe-1345-4e4e-94a4-157427fa70a6)
 
 **Question 6**
----
-From the following tables write a SQL query to find the order values greater than the average order value of 10th October 2012. Return ord_no, purch_amt, ord_date, customer_id, salesman_id.
 
-Note: date should be yyyy-mm-dd format
+From the following tables write a SQL query to find salespeople who had more than one customer. Return salesman_id and name.
 
-ORDERS TABLE
-```
-name            type
-----------     ----------
-ord_no          int
-purch_amt    real
-ord_date       text
-customer_id  int
-salesman_id  int
-```
-```
-SELECT ord_no, purch_amt, ord_date, customer_id, salesman_id
-FROM ORDERS
-WHERE purch_amt > (
-    SELECT AVG(purch_amt)
-    FROM ORDERS
-    WHERE ord_date = '2012-10-10'
-);
+salesman table
+
+name type
+
+salesman_id numeric(5) name varchar(30) city varchar(15) commission decimal(5,2)
+
+customer table
+
+name type
+
+customer_id int cust_name text city text grade int salesman_id int
 
 ```
-
+SELECT s.salesman_id, s.name
+FROM salesman s
+JOIN customer c ON s.salesman_id = c.salesman_id
+GROUP BY s.salesman_id, s.name
+HAVING COUNT(c.customer_id) > 1;
+```
 **Output:**
 
-![image](https://github.com/user-attachments/assets/c430c51e-9b78-4f93-8466-421008a9ef22)
-
+![image](https://github.com/user-attachments/assets/b8aa43ee-fadc-4fbc-b6a7-f3ab07754e5f)
 
 **Question 7**
----
-From the following tables write a SQL query to find all orders generated by New York-based salespeople. Return ord_no, purch_amt, ord_date, customer_id, salesman_id.
+
+Write a query to display all the customers whose ID is the difference between the salesperson ID of Mc Lyon and 2001.
 
 salesman table
-```
-name             type
----------------  ---------------
-salesman_id      numeric(5)
-name                 varchar(30)
-city                    varchar(15)
-commission       decimal(5,2)
-```
-orders table
-```
-name             type
----------------  --------
-order_no         int
-purch_amt        real
-order_date       text
-customer_id      int
-salesman_id      int
-```
-```
-SELECT o.ord_no, o.purch_amt, o.ord_date, o.customer_id, o.salesman_id
-FROM orders o
-JOIN salesman s ON o.salesman_id = s.salesman_id
-WHERE s.city = 'New York';
 
-```
+name type
 
+salesman_id numeric(5) name varchar(30) city varchar(15) commission decimal(5,2)
+
+customer table
+
+name type
+
+customer_id int cust_name text city text grade int salesman_id int
+```
+SELECT *
+FROM customer
+WHERE customer_id = (
+    SELECT s.salesman_id - 2001
+    FROM salesman s
+    WHERE s.name = 'Mc Lyon'
+);
+```
 **Output:**
-![image](https://github.com/user-attachments/assets/2fc61d66-a2cb-4187-aae4-096d234335ec)
+
+![image](https://github.com/user-attachments/assets/aa53bb8e-7d8a-4102-9e6e-574d94cdb1c6)
 
 **Question 8**
----
-From the following tables, write a SQL query to find those salespeople who earned the maximum commission. Return ord_no, purch_amt, ord_date, and salesman_id.
 
-salesman table
-```
-name             type
----------------  ---------------
-salesman_id      numeric(5)
-name                 varchar(30)
-city                    varchar(15)
-commission       decimal(5,2)
-```
-orders table
-```
-name             type
----------------  --------
-order_no         int
-purch_amt        real
-order_date       text
-customer_id      int
-salesman_id      int
-```
-```
-SELECT o.ord_no, o.purch_amt, o.ord_date, o.salesman_id
-FROM orders o
-JOIN salesman s ON o.salesman_id = s.salesman_id
-WHERE s.commission = (
-    SELECT MAX(commission)
-    FROM salesman
-);
+Write a SQL query to retrieve all columns from the CUSTOMERS table for customers whose salary is greater than $4500.
+
+Sample table: CUSTOMERS
+
+ID NAME AGE ADDRESS SALARY
+
+1 Ramesh 32 Ahmedabad 2000 2 Khilan 25 Delhi 1500 3 Kaushik 23 Kota 2000 4 Chaitali 25 Mumbai 6500 5 Hardik 27 Bhopal 8500 6 Komal 22 Hyderabad 4500
+
+7 Muffy 24 Indore 10000
 
 ```
-
+SELECT * 
+FROM CUSTOMERS
+WHERE SALARY > 4500;
+```
 **Output:**
 
-![image](https://github.com/user-attachments/assets/d34c06f4-4485-45aa-a1df-f7d9401eec2b)
+![image](https://github.com/user-attachments/assets/1a6d62f1-ad8b-4e1f-a5ca-ba0c46e29b6a)
 
 
 **Question 9**
----
-From the following tables, write a SQL query to find all the orders generated in New York city. Return ord_no, purch_amt, ord_date, customer_id and salesman_id.
 
-SALESMAN TABLE
-```
-name               type
------------        ----------
-salesman_id  numeric(5)
-name             varchar(30)
-city                 varchar(15)
-commission   decimal(5,2)
-```
-ORDERS TABLE
-```
-name            type
-----------      ----------
-ord_no          int
-purch_amt    real
-ord_date       text
-customer_id  int
-salesman_id  int
-```
-```
-SELECT o.ord_no, o.purch_amt, o.ord_date, o.customer_id, o.salesman_id
-FROM orders o
-JOIN salesman s ON o.salesman_id = s.salesman_id
-WHERE s.city = 'New York';
+Write a SQL query to Retrieve the names of customers who have a phone number that is not shared with any other customer.
 
+SAMPLE TABLE: customer
+
+name type
+
+id INTEGER name TEXT city TEXT email TEXT phone INTEGER
+```
+SELECT name
+FROM customer
+WHERE phone NOT IN (
+    SELECT phone
+    FROM customer
+    GROUP BY phone
+    HAVING COUNT(*) > 1
+);
 ```
 
 **Output:**
 
-![image](https://github.com/user-attachments/assets/52f55304-0cfd-4b75-bdb5-f6fe19e13f0b)
 
 **Question 10**
----
-Write a SQL query that retrieves the all the columns from the Table Grades, where the grade is equal to the minimum grade achieved in each subject.
 
-Sample table: GRADES (attributes: student_id, student_name, subject, grade)
-
-
+Write a SQL query that retrieve all the columns from the table "Grades", where the grade is equal to the maximum grade achieved in each subject.
 ```
-SELECT student_id, student_name, subject, grade
+SELECT *
 FROM Grades g
 WHERE grade = (
-    SELECT MIN(grade)
+    SELECT MAX(grade)
     FROM Grades
     WHERE subject = g.subject
+    GROUP BY subject
 );
-
 ```
-
 **Output:**
 
-![image](https://github.com/user-attachments/assets/d16e38c0-ec16-448e-b45b-fbb95ba9cba7)
-
-
+![image](https://github.com/user-attachments/assets/ee3ffb42-51f2-473e-9621-f5a8c3772024)
 
 ## RESULT
 Thus, the SQL queries to implement subqueries and views have been executed successfully.
