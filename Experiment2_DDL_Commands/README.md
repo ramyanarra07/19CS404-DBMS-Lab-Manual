@@ -1,5 +1,6 @@
 # Experiment 2: DDL Commands
-
+## Name:NARRA RAMYA
+## Reg.no:212223040128
 ## AIM
 To study and implement DDL commands and different types of constraints.
 
@@ -105,230 +106,154 @@ CREATE TABLE Table_Name (
 
 **Question 1**
 
-Write a SQL query to Add a new column State as text in the Student_details table.
-
-![image](https://github.com/user-attachments/assets/d77d70ca-7cc4-47a3-a7ce-561e45c87225)
-
+Write a SQL query to modify the Student_details table by adding a new column Email of type VARCHAR(50) and updating the column MARKS to have a default value of 0.
 ```
-ALTER TABLE Student_details ADD COLUMN State TEXT;
+ALTER TABLE  Student_details ADD COLUMN Email VARCHAR(50);
+ALTER TABLE  Student_details ADD COLUMN MARKS DEFAULT '0';
 ```
 **Output:**
 
-![image](https://github.com/user-attachments/assets/f6816446-02a5-413d-9601-895cd303be23)
+![image](https://github.com/user-attachments/assets/a2ad517d-78c6-4489-9474-ae83f64e32ce)
+
 
 **Question 2**
 
-Insert the below data into the Employee table, allowing the Department and Salary columns to take their default values.
-![image](https://github.com/user-attachments/assets/08bc811b-c5d7-41f6-b478-7141dd02a00c)
-
+Create a new table named contacts with the following specifications: contact_id as INTEGER and primary key. first_name as TEXT and not NULL. last_name as TEXT and not NULL. email as TEXT. phone as TEXT and not NULL with a check constraint to ensure the length of phone is at least 10 characters.
 ```
-INSERT INTO Employee(EmployeeID,Name,Position)
-
-VALUES('4','Emily White','Analyst');
+CREATE TABLE contacts (
+contact_id INT PRIMARY KEY,
+first_name TEXT  NOT NULL,
+last_name TEXT NOT NULL,
+email TEXT,
+phone TEXT  NOT NULL,
+CHECK (LENGTH(phone)>=10)
+);
 ```
 **Output:**
 
-![image](https://github.com/user-attachments/assets/16b0be4d-c367-4bc3-95b4-5b807c60220e)
+![image](https://github.com/user-attachments/assets/4232e1e8-adc2-4bcc-aecc-6cb871978988)
+
 
 **Question 3**
 
-Insert all employees from Former_employees into Employee
-![image](https://github.com/user-attachments/assets/e66a4127-0cce-4915-9bae-13a6d092006f)
+Insert all books from Out_of_print_books into Books
 
+Table attributes are ISBN, Title, Author, Publisher, YearPublished
 ```
-INSERT into Employee(EmployeeID,Name,Department,Salary)
-
-SELECT EmployeeID,Name,Department,Salary FROM Former_employees;
+INSERT INTO Books(ISBN, Title, Author, Publisher, YearPublished)
+SELECT ISBN, Title, Author, Publisher, YearPublished 
+FROM Out_of_print_books;
 ```
-
 **Output:**
 
-![image](https://github.com/user-attachments/assets/1f333654-e8c5-49a9-a068-6aba045e1102)
+![image](https://github.com/user-attachments/assets/cbec7eb2-d1e6-4204-9486-203ef3c32e2c)
+
 
 **Question 4**
 
-Create a table named Customers with the following columns:
+Create a table named Departments with the following columns:
 
-![image](https://github.com/user-attachments/assets/88d374de-5f2b-4682-90c4-8f19cf9053f5)
-
+DepartmentID as INTEGER DepartmentName as TEXT
 ```
-CREATE TABLE Customers(
-
-CustomerID INTEGER,
-
-Name TEXT,
-
-Email TEXT,
-
-JoinDate DATETIME );
+CREATE TABLE Departments(
+DepartmentID INTEGER,
+DepartmentName TEXT);
 ```
 
 **Output:**
-
-![image](https://github.com/user-attachments/assets/c442f95f-4b2c-4db6-bda2-64ee8e1b39a3)
+![image](https://github.com/user-attachments/assets/3c02ebb4-0350-4b0b-b74a-3611066239c4)
 
 **Question 5**
 
-Write an SQL query to add a new column email of type TEXT to the Student_details table, and ensure that this column cannot contain NULL values and make default value as 'Invalid'
-
-![image](https://github.com/user-attachments/assets/5c0fa14e-1bf8-43ff-afbd-e49c1ce47281)
-
-
+Write an SQL query to add two new columns, department_id and manager_id, to the table employee with datatype of INTEGER. The manager_id column should have a default value of NULL.
 ```
-ALTER TABLE Student_details
-
-ADD COLUMN email TEXT not NULL default'Invalid';
+ALTER TABLE employee ADD COLUMN department_id INTEGER;
+ALTER TABLE employee ADD COLUMN manager_id INTEGER DEFAULT NULL;
 ```
-
 **Output:**
-
-![image](https://github.com/user-attachments/assets/3ebb9f54-625e-4b4f-82ce-43e18b3daf25)
+![image](https://github.com/user-attachments/assets/aa64eeea-195a-4162-91ea-0dd7a32aa315)
 
 **Question 6**
 
-Create a table named Invoices with the following constraints:
+Insert all customers from Old_customers into Customers
 
-InvoiceID as INTEGER should be the primary key.
-
-InvoiceDate as DATE.
-
-Amount as REAL should be greater than 0.
-
-DueDate as DATE should be greater than the InvoiceDate.
-
-OrderID as INTEGER should be a foreign key referencing Orders(OrderID).
-
-![image](https://github.com/user-attachments/assets/31231a61-66c7-4124-aa3a-3874e16cef1a)
-
+Table attributes are CustomerID, Name, Address, Email
 ```
-CREATE TABLE Invoices(
-
-InvoiceID INTEGER primary key,
-
-InvoiceDate DATE,
-
-Amount REAL CHECK(Amount>=0),
-
-DueDate DATE CHECK(DueDate>=InvoiceDate),
-
-OrderID INTEGER,
-
-foreign key (OrderID) references Orders(OrderID) );
+INSERT INTO Customers(CustomerID, Name, Address, Email)
+SELECT CustomerID, Name, Address, Email
+FROM Old_customers;6
 ```
-
 **Output:**
 
-![image](https://github.com/user-attachments/assets/e0ab9583-0db2-4eca-9e63-dc63e08ef9bd)
+![image](https://github.com/user-attachments/assets/5ad04860-aab6-4066-9138-47629ff8a49f)
 
 **Question 7**
 
-Create a table named Products with the following constraints:
+ ---Write a SQL query to Add a new column named "discount" with the data type DECIMAL(5,2) to the "customer" table.
 
-ProductID should be the primary key.
+Sample table: customer
 
-ProductName should be NOT NULL.
-
-Price is of real datatype and should be greater than 0.
-
-Stock is of integer datatype and should be greater than or equal to 0.
-
-![image](https://github.com/user-attachments/assets/be7c385b-05cb-448b-aeb4-fd356ab0bd89)
-
-
+customer_id | cust_name | city | grade | salesman_id -------------+----------------+------------+-------+------------- 3002 | Nick Rimando | New York | 100 | 5001 3007 | Brad Davis | New York | 200 | 5001 3005 | Graham Zusi | California | 200 | 5002
 ```
-CREATE TABLE Products(
-
-ProductID INTEGER primary key,
-
-ProductName not NULL,
-
-Price REAL CHECK (Price>0),
-
-Stock INTEGER CHECK (Stock>=0) );
+ALTER TABLE customer  ADD COLUMN discount DECIMAL(5,2);
 ```
 
 **Output:**
 
-![image](https://github.com/user-attachments/assets/373a12e1-be4d-492e-bb30-934c7a5e621d)
+![image](https://github.com/user-attachments/assets/fc9f743c-666b-401b-84c5-983bd21a4926)
 
 **Question 8**
 
-Create a table named Orders with the following constraints:
+Create a table named Members with the following columns:
 
-OrderID as INTEGER should be the primary key.
-
-OrderDate as DATE should be not NULL.
-
-CustomerID as INTEGER should be a foreign key referencing Customers(CustomerID).
-
-![image](https://github.com/user-attachments/assets/168ffca6-bc2f-4a19-aef6-9f2525c33d66)
-
+MemberID as INTEGER MemberName as TEXT JoinDate as DATE
 ```
-CREATE TABLE Orders(
-
-OrderID INTEGER primary key,
-
-OrderDate DATE not NULL,
-
-CustomerID INTEGER,
-
-foreign key (CustomerID) references Customers(CustomerID) );
+create table Members(
+MemberID INTEGER,
+MemberName TEXT,
+JoinDate DATE
+);
 ```
+## **Output:**
 
+![image](https://github.com/user-attachments/assets/0b0a2862-476c-4930-be64-9efc6e273acb)
+
+
+## **Question 9**
+
+Write a SQL query to add birth_date attribute as timestamp (datatype) in the table customer 
+
+Sample table: customer
+
+ customer_id |   cust_name    |    city    | grade | salesman_id 
+-------------+----------------+------------+-------+-------------
+        3002 | Nick Rimando   | New York   |   100 |        5001
+        3007 | Brad Davis     | New York   |   200 |        5001
+        3005 | Graham Zusi    | California |   200 |        5002
+```
+  alter table customer
+add column birth_date timestamp;
+```
 **Output:**
 
-![image](https://github.com/user-attachments/assets/290298ca-0552-413d-973a-2e3e42526382)
-
-**Question 9**
-
-Create a table named Department with the following constraints:
-
-DepartmentID as INTEGER should be the primary key.
-
-DepartmentName as TEXT should be unique and not NULL.
-
-Location as TEXT.
-
-![image](https://github.com/user-attachments/assets/9eb859ca-e2ea-4aef-8194-fa05a7e7b81f)
-
-```
-CREATE TABLE Department(
-
-DepartmentID INTEGER primary key,
-
-DepartmentName TEXT UNIQUE not NULL,
-
-Location TEXT );
-```
-
-**Output:**
-
-![image](https://github.com/user-attachments/assets/a0f9475d-5f7a-42d1-9180-133f6798fe63)
+![image](https://github.com/user-attachments/assets/9eb90475-b45d-40ff-aa44-3813174201ba)
 
 **Question 10**
 
-In the Books table, insert a record where some fields are NULL, another record where all fields are filled without any NULL values, and a third record where some fields are filled, and others are left as NULL.
+Insert the below data into the Student_details table, allowing the Subject and MARKS columns to take their default values.
 
-![image](https://github.com/user-attachments/assets/c2e243e4-4987-46ea-b19f-eda6f1a84819)
+RollNo      Name          Gender      
+----------  ------------  ----------  
+204         Samuel Black  M          
 
+Note: The Subject and MARKS columns will use their default values.
 ```
-INSERT INTO Books(ISBN, Title, Author, Publisher, Year)
-
-VALUES('978-1234567890', 'Introduction to AI', 'John Doe', null, null);
-
-INSERT INTO Books(ISBN, Title, Author, Publisher, Year)
-
-VALUES('978-9876543210', 'Deep Learning', 'Jane Doe', 'TechPress', '2022');
-
-INSERT INTO Books(ISBN, Title, Author, Publisher, Year)
-
-VALUES('978-1122334455', 'Cybersecurity Essentials', 'Alice Smith', null, 2021);
+insert into Student_details(RollNo,Name,Gender)
+values(204,"Samuel Black","M");
 ```
-
 **Output:**
 
-![image](https://github.com/user-attachments/assets/53eeea10-ac1d-43c7-8ff6-18e45babb0ad)
+![image](https://github.com/user-attachments/assets/9d1f9460-2ad8-4479-99d2-7a8a2d5f5797)
 
 ## RESULT
-
 Thus, the SQL queries to implement different types of constraints and DDL commands have been executed successfully.
